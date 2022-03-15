@@ -1,0 +1,162 @@
+/*******************************************************************************
+ * @file        encoder.c
+ * @date        2021.10.21
+ * @author      信念D力量
+ * @brief       EC11 旋转编码器
+ * @github      https://github.com/zsf90/GD32F150C8T6-EXAMPLE
+ * @bilibili    https://space.bilibili.com/334715750
+ ******************************************************************************/
+#include "encoder.h"
+
+// 创建结构体并初始化
+EC11_t ec11_1 = {
+    .sw_down_count = 0,
+    .sw_down_flag = 0,
+    .sw_down_time = 0,
+    .sw_long_press_time = 0,
+    .return_reslut = EC11_NONE,
+    .sw_down_500ms_1000ms_flag = false,
+    .is_rotate_flag = false,
+    // 方向判断
+    .clk_flag = 0,
+    .clk_count = 0,
+};
+
+extern uint16_t test_number;
+
+/*******************************************************************************
+ * @brief 旋转编码器外设配置
+ ******************************************************************************/
+void encoder_exit_config(encoder_mode_enum _zsf_eme)
+{
+    /* 使能外设时钟 */
+    rcu_periph_clock_enable(ENCODER_CLK_GPIO_CLK);
+    rcu_periph_clock_enable(ENCODER_DT_GPIO_CLK);
+    rcu_periph_clock_enable(ENCODER_SW_GPIO_CLK);
+    rcu_periph_clock_enable(RCU_CFGCMP);
+
+    /* configure button pin as input */
+    gpio_mode_set(ENCODER_CLK_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_NONE, ENCODER_CLK_PIN);
+    gpio_mode_set(ENCODER_DT_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_NONE, ENCODER_DT_PIN);
+    gpio_mode_set(ENCODER_SW_GPIO_PORT, GPIO_MODE_INPUT, GPIO_PUPD_NONE, ENCODER_SW_PIN);
+
+    if (_zsf_eme == ENCODER_MODE_EXIT)
+    {
+        /* enable and set key EXTI interrupt to the lowest priority */
+        nvic_irq_enable(ENCODER_CLK_EXTI_IRQn, 1U, 1U);
+        nvic_irq_enable(ENCODER_SW_EXTI_IRQn, 1U, 1U);
+
+        /* connect key EXTI line to key GPIO pin */
+        syscfg_exti_line_config(ENCODER_CLK_EXTI_PORT_SOURCE, ENCODER_CLK_EXTI_PIN_SOURCE);
+        syscfg_exti_line_config(ENCODER_SW_EXTI_PORT_SOURCE, ENCODER_SW_EXTI_PIN_SOURCE);
+
+        /* configure key EXTI line */
+        exti_init(ENCODER_CLK_EXTI_LINE, EXTI_INTERRUPT, EXTI_TRIG_BOTH);
+        exti_interrupt_flag_clear(ENCODER_CLK_EXTI_LINE);
+        exti_init(ENCODER_SW_EXTI_LINE, EXTI_INTERRUPT, EXTI_TRIG_FALLING);
+        exti_interrupt_flag_clear(ENCODER_SW_EXTI_LINE);
+    }
+}
+
+/*******************************************************************************
+ * @brief 旋转编码器处理函数
+ ******************************************************************************/
+ec11_return_result encoder_handle(void)
+{
+    ec11_return_result temp_result;
+    /* 10ms 消抖 */
+    if(ec11_1.sw_down_flag == 1 && ec11_1.sw_down_time > 10 && ec11_1.sw_down_count == 0 && sw_value == RESET)
+    {
+        ec11_1.sw_down_count = 1;
+    }
+
+    /* 按键长按 500ms~1s 判断 */
+    if((ec11_1.sw_down_count == 1) && (ec11_1.sw_down_time > 500) && (ec11_1.sw_down_time < 1000) && (sw_value == RESET))
+    {
+        ec11_1.sw_down_500ms_1000ms_flag = true;
+    }
+    
+    /* 判断长按中键 */
+    if((ec11_1.sw_down_count == 1) && (ec11_1.sw_down_time > 1000) && (ec11_1.is_rotate_flag != true))
+    {
+        ec11_1.return_reslut = EC11_LONG_PRESS;     // 设置返回结果
+        ec11_1.sw_down_500ms_1000ms_flag = false;   // 这里用来清除 sw_long_flag 标志，如果不清除，则旋转时还会进入长按旋转状态
+    }
+    /* 长按松开时要做的清除工作 */
+    if(ec11_1.sw_down_count == 1 && ec11_1.sw_down_time > 500 && sw_value == SET)
+    {
+        ec11_1.sw_down_count = 0;                   // 长按需要把 sw_down_count 清零
+        ec11_1.sw_down_time = 0;                    // 长按需要 sw_down_time 清零
+        ec11_1.sw_down_flag = 0;                    // 清除 sw_down_flag 标志
+        ec11_1.sw_down_500ms_1000ms_flag = false;   // 清除 500ms~1000ms 标志
+        ec11_1.is_rotate_flag = false;              // 清除旋转标志
+        ec11_1.return_reslut = EC11_NONE;           // 清除返回结果
+    }
+
+    /* 单击双击判断 */
+    if(ec11_1.sw_down_count == 1 && sw_value == SET && ec11_1.sw_down_time < 500)
+    {
+        ec11_1.sw_down_count = 2;   // sw_down_time < 500 需要判断双击还是单击
+        ec11_1.sw_down_time = 0;    // 按下时间清零
+    }
+
+    if(ec11_1.sw_down_flag == 1 && ec11_1.sw_down_count == 2 && ec11_1.sw_down_time > 100)
+    {
+        if(sw_value == RESET)
+        {
+            ec11_1.return_reslut = EC11_DOUBLE_CLICK;    // 双击
+            ec11_1.sw_down_time = 0;
+            ec11_1.sw_down_flag = 0;
+            ec11_1.sw_down_count = 0;
+        } else {
+            ec11_1.return_reslut = EC11_CLICK;    // 单击
+            ec11_1.sw_down_time = 0;
+            ec11_1.sw_down_flag = 0;
+            ec11_1.sw_down_count = 0;
+        }
+    }
+
+    
+    /* 旋转编码器结果处理 */
+    #if 0
+    switch (ec11_1.return_reslut)
+    {
+    case EC11_CW:   // 顺时针
+        test_number++;
+        ec11_1.return_reslut = EC11_NONE;
+        break;
+    case EC11_CCW:  // 逆时针
+        test_number--;
+        ec11_1.return_reslut = EC11_NONE;
+        break;
+    case EC11_DOWN_CW:  // 按下按钮并顺时针旋转
+        test_number += 10;
+        ec11_1.return_reslut = EC11_NONE;
+        break;
+    case EC11_DOWN_CCW: // 按下按钮并逆时针旋转
+        test_number -= 10;
+        ec11_1.return_reslut = EC11_NONE;
+        break;
+    case EC11_CLICK: // 单击中键
+        test_number += 1;
+        ec11_1.return_reslut = EC11_NONE;
+        break;
+    case EC11_DOUBLE_CLICK: // 双击中键
+        test_number = 0;
+        ec11_1.return_reslut = EC11_NONE;
+        break;
+    case EC11_LONG_PRESS: // 长按中键
+        test_number += 1;
+        ec11_1.return_reslut = EC11_NONE;
+        break;
+    
+    default:
+        break;
+    }
+
+    #endif
+
+    temp_result = ec11_1.return_reslut;
+
+    return temp_result; 
+}

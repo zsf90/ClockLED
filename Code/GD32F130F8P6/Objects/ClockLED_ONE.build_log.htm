@@ -1,0 +1,93 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.36.0.0
+Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: xxx zhang, ddd, LIC=Z3C6R-KYN3A-685FC-7PWNH-EHBEK-2A8BD
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.36.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.36.0.0
+Dialog DLL:      DARMGD.DLL
+Target DLL:      CMSIS_AGDI.dll V1.33.0.0
+Dialog DLL:      DARMGD.DLL
+ 
+<h2>Project:</h2>
+E:\Projects\ClockLED_ONE\Code\GD32F130F8P6\ClockLED_ONE.uvprojx
+Project File Date:  03/11/2022
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Rebuild target 'Debug'
+compiling gd32f1x0_it.c...
+compiling systick.c...
+compiling main.c...
+compiling debug_printf.c...
+compiling delay.c...
+compiling tm1637.c...
+Src\tm1637.c(335): warning:  #177-D: function "tm1637_clear"  was declared but never referenced
+  static void tm1637_clear(void)
+Src\tm1637.c(343): warning:  #177-D: function "tm1637_brightness"  was declared but never referenced
+  static void tm1637_brightness(tm1637_t *tm1637, uint8_t brightness)
+Src\tm1637.c: 2 warnings, 0 errors
+compiling ds1302.c...
+compiling encoder.c...
+compiling ds18b20.c...
+Src\ds18b20.c(36): warning:  #188-D: enumerated type mixed with another type
+      DS18B20_OUT(0);
+Src\ds18b20.c(38): warning:  #188-D: enumerated type mixed with another type
+      DS18B20_OUT(1);
+Src\ds18b20.c(55): warning:  #188-D: enumerated type mixed with another type
+          DS18B20_OUT(0);
+Src\ds18b20.c(58): warning:  #188-D: enumerated type mixed with another type
+              DS18B20_OUT(0);
+Src\ds18b20.c(60): warning:  #188-D: enumerated type mixed with another type
+              DS18B20_OUT(1);
+Src\ds18b20.c(64): warning:  #188-D: enumerated type mixed with another type
+      DS18B20_OUT(1);
+Src\ds18b20.c(78): warning:  #188-D: enumerated type mixed with another type
+          DS18B20_OUT(0);
+Src\ds18b20.c(80): warning:  #188-D: enumerated type mixed with another type
+          DS18B20_OUT(1);
+Src\ds18b20.c(118): warning:  #177-D: variable "tp"  was declared but never referenced
+      float tp;
+Src\ds18b20.c: 9 warnings, 0 errors
+assembling startup_gd32f1x0.s...
+compiling system_gd32f1x0.c...
+compiling gd32f1x0_exti.c...
+compiling gd32f1x0_gpio.c...
+compiling gd32f1x0_rcu.c...
+compiling gd32f1x0_syscfg.c...
+compiling gd32f1x0_timer.c...
+compiling gd32f1x0_usart.c...
+compiling gd32f1x0_misc.c...
+compiling gd32f1x0_dbg.c...
+compiling gd32f1x0r_eval.c...
+linking...
+Program Size: Code=8384 RO-data=392 RW-data=144 ZI-data=1040  
+FromELF: creating hex file...
+".\Objects\ClockLED_ONE.axf" - 0 Error(s), 11 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: GigaDevice
+                http://gd32mcu.com/data/documents/pack/GigaDevice.GD32F1x0_DFP.3.2.0.pack
+                GigaDevice.GD32F1x0_DFP.3.2.0
+                GigaDevice GD32F1x0 Series Device Support and Examples
+
+<h2>Collection of Component include folders:</h2>
+  C:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:03
+</pre>
+</body>
+</html>
