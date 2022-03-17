@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\ClockLED_ONE.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\ClockLED_ONE.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sat Mar 12 23:56:19 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Thu Mar 17 22:32:06 2022
 <BR><P>
 <H3>Maximum Stack Usage =        152 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -493,7 +493,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
-<P><STRONG><a name="[63]"></a>ds18b20_ack</STRONG> (Thumb, 86 bytes, Stack size 8 bytes, ds18b20.o(i.ds18b20_ack))
+<P><STRONG><a name="[63]"></a>ds18b20_ack</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, ds18b20.o(i.ds18b20_ack))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = ds18b20_ack &rArr; ds18b20_io_read &rArr; gpio_mode_set
 </UL>
 <BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ds18b20_io_read
@@ -648,7 +648,7 @@ Global Symbols
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tm1637_gpio_init
 </UL>
 
-<P><STRONG><a name="[39]"></a>main</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[39]"></a>main</STRONG> (Thumb, 82 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = main &rArr; debug_printf_init &rArr; gd_eval_com_init &rArr; usart_baudrate_set &rArr; rcu_clock_freq_get
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;us_timer_init

@@ -1,6 +1,6 @@
 Dependencies for Project 'ClockLED_ONE', Target 'Debug': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
-F (.\Src\main.c)(0x622CC29B)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Firmware\CMSIS\GD\GD32F1x0\Include -I .\Firmware\GD32F1x0_standard_peripheral\Include -I .\Firmware\CMSIS -I .\Inc -I .\Utilities-IC:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-D__UVISION_VERSION="536" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER -DGD32F130_150 -DDEBUG-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\Src\main.c)(0x6233465C)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Firmware\CMSIS\GD\GD32F1x0\Include -I .\Firmware\GD32F1x0_standard_peripheral\Include -I .\Firmware\CMSIS -I .\Inc -I .\Utilities-IC:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-D__UVISION_VERSION="536" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER -DGD32F130_150 -DDEBUG-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\Firmware\CMSIS\GD\GD32F1x0\Include\gd32f1x0.h)(0x60A21535)
 I (.\Firmware\CMSIS\core_cm3.h)(0x60A21534)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
@@ -179,7 +179,7 @@ I (.\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_usart.h)(0x60A21533)
 I (.\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_wwdgt.h)(0x60A21532)
 I (.\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_misc.h)(0x60A21532)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
-F (.\Src\ds18b20.c)(0x622CC1CC)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Firmware\CMSIS\GD\GD32F1x0\Include -I .\Firmware\GD32F1x0_standard_peripheral\Include -I .\Firmware\CMSIS -I .\Inc -I .\Utilities-IC:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-D__UVISION_VERSION="536" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER -DGD32F130_150 -DDEBUG-o .\objects\ds18b20.o --omf_browse .\objects\ds18b20.crf --depend .\objects\ds18b20.d)
+F (.\Src\ds18b20.c)(0x62334607)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Firmware\CMSIS\GD\GD32F1x0\Include -I .\Firmware\GD32F1x0_standard_peripheral\Include -I .\Firmware\CMSIS -I .\Inc -I .\Utilities-IC:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-D__UVISION_VERSION="536" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER -DGD32F130_150 -DDEBUG-o .\objects\ds18b20.o --omf_browse .\objects\ds18b20.crf --depend .\objects\ds18b20.d)
 I (.\Inc\ds18b20.h)(0x622CB4F9)
 I (.\Firmware\CMSIS\GD\GD32F1x0\Include\gd32f1x0.h)(0x60A21535)
 I (.\Firmware\CMSIS\core_cm3.h)(0x60A21534)

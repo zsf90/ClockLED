@@ -34,11 +34,10 @@ void ds18b20_init(ds18b20_t *ds18b20)
 bool ds18b20_ack(void)
 {
     DS18B20_OUT(0);
-    delay_1us(125);
+    delay_1us(520);
     DS18B20_OUT(1);
-    delay_1us(68);
+    delay_1us(20);
     bool t = ds18b20_io_read();
-
     return !t;
 }
 
@@ -60,7 +59,7 @@ void ds18b20_write_byte(uint8_t data)
             DS18B20_OUT(1);
         }
     }
-    delay_1us(60);
+    delay_1us(30);
     DS18B20_OUT(1);
 }
 
@@ -84,7 +83,7 @@ uint8_t ds18b20_read_byte(void)
         } else {
             data |= mask;
         }
-        delay_1us(60);
+        delay_1us(30);
     }
     return data;
 }

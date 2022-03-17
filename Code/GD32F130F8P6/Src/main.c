@@ -39,6 +39,7 @@ int main(void)
 		ds18b20_start();
 		ds18b20_get_temp(&ds18b20);
 		printf("%f\n", ds18b20.temp);
+		delay_1ms(1000);
 
 	}
 }
