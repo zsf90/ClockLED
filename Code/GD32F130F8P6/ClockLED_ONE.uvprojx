@@ -336,7 +336,7 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls></MiscControls>
+              <MiscControls>--diag_suppress=188,177</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,GD32F130_150,DEBUG</Define>
               <Undefine></Undefine>
               <IncludePath>.\Firmware\CMSIS\GD\GD32F1x0\Include;.\Firmware\GD32F1x0_standard_peripheral\Include;.\Firmware\CMSIS;.\Inc;.\Utilities</IncludePath>
@@ -427,6 +427,11 @@
               <FileName>ds1302.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\ds1302.c</FilePath>
+            </File>
+            <File>
+              <FileName>menus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\menus.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -923,6 +928,11 @@
               <FileName>ds1302.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\ds1302.c</FilePath>
+            </File>
+            <File>
+              <FileName>menus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\menus.c</FilePath>
             </File>
           </Files>
         </Group>

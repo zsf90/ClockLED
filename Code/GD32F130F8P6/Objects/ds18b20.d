@@ -22,6 +22,5 @@
 .\objects\ds18b20.o: .\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_usart.h
 .\objects\ds18b20.o: .\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_wwdgt.h
 .\objects\ds18b20.o: .\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_misc.h
-.\objects\ds18b20.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\ds18b20.o: .\Inc\delay.h
 .\objects\ds18b20.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

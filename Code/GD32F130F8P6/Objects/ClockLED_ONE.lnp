@@ -8,6 +8,7 @@
 ".\objects\encoder.o"
 ".\objects\ds18b20.o"
 ".\objects\ds1302.o"
+".\objects\menus.o"
 ".\objects\system_gd32f1x0.o"
 ".\objects\startup_gd32f1x0.o"
 ".\objects\gd32f1x0_exti.o"

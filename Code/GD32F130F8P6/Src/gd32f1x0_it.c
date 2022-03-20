@@ -42,9 +42,13 @@ OF SUCH DAMAGE.
 #include "systick.h"
 
 #include "encoder.h"
+#include "ds18b20.h"
 
 extern uint32_t num;
 extern EC11_t ec11_1;
+extern uint32_t loop_display_count;
+extern uint32_t loop_display_flag; /* 1: 显示温度 2: 显示时间 */
+
 
 /*!
     \brief      this function handles NMI exception
@@ -158,6 +162,15 @@ void SysTick_Handler(void)
     {
         ec11_1.sw_long_press_time++;
     }
+
+    loop_display_count++;
+	if(loop_display_count <= 4000) {
+		loop_display_flag = 1;
+	} else if (loop_display_count > 4000 && loop_display_count < 8000) {
+		loop_display_flag = 2;
+	} else if (loop_display_count > 8000) {
+		loop_display_count = 0;
+	}
 
 }
 

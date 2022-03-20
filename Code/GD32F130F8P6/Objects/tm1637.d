@@ -25,3 +25,4 @@
 .\objects\tm1637.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\tm1637.o: .\Inc\delay.h
 .\objects\tm1637.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\tm1637.o: .\Inc\ds1302.h

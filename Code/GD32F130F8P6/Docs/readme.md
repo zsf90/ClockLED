@@ -1,17 +1,10 @@
-/**
- * @file delay.c
- * @author 信念D力量 (zsf.cn.90@gmail.com)
- * @brief 本文件主要实现各种延时函数
- * @version 0.1
- * @date 2022-02-28
- * 
- * @copyright Copyright (c) 2022
- * 
- */
-#include "delay.h"
-#include "gd32f1x0_timer.h"
+# 项目调试笔记
 
+## DS18B20 调试不通
 
+刚开始调试 ds18b20 一直调试不同，后来发现是 delay_1us() 微妙延时函数出现了问题。问题是延时长了一倍，所以 ds18b20 的时序就不对了，把 delay_1us() 调准之后就可以读出温度了。
+
+```c
 /**
  * @brief 微秒延时定时器初始化
  * 
@@ -58,3 +51,6 @@ void delay_ms(uint16_t ms)
 		delay_1us(1000);
 	}
 }
+
+```
+

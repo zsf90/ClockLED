@@ -11,9 +11,12 @@
 #include "tm1637.h"
 #include "delay.h"
 #include <stdio.h>
+#include "ds1302.h"
 
 
 tm1637_t tm1637;
+
+extern uint8_t TIME[];
 
 
 // dp g f e d c b a
@@ -197,6 +200,8 @@ void tm1637_display_int(uint16_t num)
     uint8_t shi     = num / 10 % 10;
     uint8_t bai     = num / 100 % 10;
     uint8_t qian    = num / 1000 % 10;
+
+    tm1637_display_fixed(5, SEGData[SEG_None]);
     
     if(num > 999) {
         tm1637_display_fixed(4, SEGData[ge]);
@@ -238,6 +243,108 @@ void tm1637_display_menu(menu_enum menu)
     for(i=0;i<4;i++)
     {
         tm1637_display_fixed(i+1, menu_table[menu][i]);
+    }
+    tm1637_display_fixed(5, SEGData[SEG_None]);
+}
+
+/**
+ * @brief 显示小数 （23.32）
+ * 
+ * @param fnum 
+ */
+void tm1637_display_float(float fnum)
+{
+    uint16_t int_part; /* 整数部分 */
+    int_part = (uint16_t)fnum;
+
+    uint8_t ge = int_part % 10;
+    uint8_t shi = int_part / 10 % 10;
+    uint8_t bai = int_part / 100 % 10;
+    uint8_t qian = int_part / 1000;
+
+    float dec_part; /*小数部分 */
+    dec_part = fnum - int_part;
+
+    if(int_part < 9) {
+        /**
+         * @brief 小于9时显示1位整数+两位小数，整数显示在第3位
+         * 
+         */
+        tm1637_display_fixed(1, SEGData[SEG_None]);
+        tm1637_display_fixed(2, SEGData[ge] | 0x80);
+
+        /* 显示小数部分 : 0.352 */
+        uint8_t dec_part_x100;
+        dec_part_x100 = dec_part * 100;
+
+        uint8_t dec_ge, dec_shi;
+        dec_ge = dec_part_x100 % 10;
+        dec_shi = dec_part_x100 / 10 % 10;
+        tm1637_display_fixed(3, SEGData[dec_shi]);
+        tm1637_display_fixed(4, SEGData[dec_ge]);
+    } else if (int_part > 9 && int_part < 100) {
+        /**
+         * @brief 显示2位整数+2位小数
+         * 
+         */
+        tm1637_display_fixed(1, SEGData[shi]);
+        tm1637_display_fixed(2, SEGData[ge] | 0x80);
+
+        /* 显示小数部分 : 0.352 */
+        uint8_t dec_part_x100;
+        dec_part_x100 = dec_part * 100;
+
+        uint8_t dec_ge, dec_shi;
+        dec_ge = dec_part_x100 % 10;
+        dec_shi = dec_part_x100 / 10 % 10;
+        tm1637_display_fixed(3, SEGData[dec_shi]);
+        tm1637_display_fixed(4, SEGData[dec_ge]);
+    } else if (int_part > 100 && int_part < 1000) {
+        /**
+         * @brief 显示 3位整数+1位小数
+         * 
+         */
+        tm1637_display_fixed(1, SEGData[bai]);
+        tm1637_display_fixed(2, SEGData[shi]);
+        tm1637_display_fixed(3, SEGData[ge] | 0x80);
+
+        /* 显示小数部分 : 0.352 */
+        uint8_t dec_part_x100;
+        dec_part_x100 = dec_part * 100;
+
+        uint8_t dec_shi;
+        dec_shi = dec_part_x100 / 10 % 10;
+        tm1637_display_fixed(4, SEGData[dec_shi]);
+    } else if (int_part > 999) {
+        tm1637_display_fixed(4, SEGData[ge]);
+        tm1637_display_fixed(3, SEGData[shi]);
+        tm1637_display_fixed(2, SEGData[bai]);
+        tm1637_display_fixed(1, SEGData[qian]);
+    }
+}
+
+/**
+ * @brief 显示时间
+ * 
+ * @param tm1637 
+ */
+void tm1637_display_time(tm1637_t *tm1637)
+{
+    uint8_t hour_h, hour_l, min_h, min_l, time_point;
+    hour_h = TIME[HOUR] / 10 % 10;
+    hour_l = TIME[HOUR] % 10;
+    min_h = TIME[MINUTES] / 10 % 10;
+    min_l = TIME[MINUTES] % 10;
+
+    time_point = TIME[SECOND];
+    tm1637_display_fixed(1, SEGData[hour_h]);
+    tm1637_display_fixed(2, SEGData[hour_l]);
+    tm1637_display_fixed(3, SEGData[min_h]);
+    tm1637_display_fixed(4, SEGData[min_l]);
+    if (time_point % 2 == 0) {
+        tm1637_display_fixed(5, SEGData[SEG_None]);
+    } else {
+        tm1637_display_fixed(5, SEGData[SEG_point]);
     }
 }
 
@@ -340,6 +447,7 @@ static void tm1637_clear(void)
     tm1637_display_fixed(4, 0);
 }
 
+/* 亮度设置 1~8 */
 static void tm1637_brightness(tm1637_t *tm1637, uint8_t brightness)
 {
     tm1637->brightness = TM1637_ON + brightness - 1;

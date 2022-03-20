@@ -30,3 +30,5 @@
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\main.o: .\Inc\encoder.h
 .\objects\main.o: .\Inc\ds18b20.h
+.\objects\main.o: .\Inc\ds1302.h
+.\objects\main.o: .\Inc\menus.h

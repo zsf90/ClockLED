@@ -22,7 +22,7 @@ Dialog DLL:      DARMGD.DLL
  
 <h2>Project:</h2>
 E:\Projects\ClockLED_ONE\Code\GD32F130F8P6\ClockLED_ONE.uvprojx
-Project File Date:  03/11/2022
+Project File Date:  03/20/2022
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
@@ -33,34 +33,11 @@ compiling gd32f1x0_it.c...
 compiling delay.c...
 compiling debug_printf.c...
 compiling tm1637.c...
-Src\tm1637.c(335): warning:  #177-D: function "tm1637_clear"  was declared but never referenced
-  static void tm1637_clear(void)
-Src\tm1637.c(343): warning:  #177-D: function "tm1637_brightness"  was declared but never referenced
-  static void tm1637_brightness(tm1637_t *tm1637, uint8_t brightness)
-Src\tm1637.c: 2 warnings, 0 errors
-compiling ds1302.c...
 compiling encoder.c...
 compiling ds18b20.c...
-Src\ds18b20.c(36): warning:  #188-D: enumerated type mixed with another type
-      DS18B20_OUT(0);
-Src\ds18b20.c(38): warning:  #188-D: enumerated type mixed with another type
-      DS18B20_OUT(1);
-Src\ds18b20.c(54): warning:  #188-D: enumerated type mixed with another type
-          DS18B20_OUT(0);
-Src\ds18b20.c(57): warning:  #188-D: enumerated type mixed with another type
-              DS18B20_OUT(0);
-Src\ds18b20.c(59): warning:  #188-D: enumerated type mixed with another type
-              DS18B20_OUT(1);
-Src\ds18b20.c(63): warning:  #188-D: enumerated type mixed with another type
-      DS18B20_OUT(1);
-Src\ds18b20.c(77): warning:  #188-D: enumerated type mixed with another type
-          DS18B20_OUT(0);
-Src\ds18b20.c(79): warning:  #188-D: enumerated type mixed with another type
-          DS18B20_OUT(1);
-Src\ds18b20.c(117): warning:  #177-D: variable "tp"  was declared but never referenced
-      float tp;
-Src\ds18b20.c: 9 warnings, 0 errors
+compiling ds1302.c...
 assembling startup_gd32f1x0.s...
+compiling menus.c...
 compiling system_gd32f1x0.c...
 compiling gd32f1x0_exti.c...
 compiling gd32f1x0_gpio.c...
@@ -72,9 +49,9 @@ compiling gd32f1x0_misc.c...
 compiling gd32f1x0_dbg.c...
 compiling gd32f1x0r_eval.c...
 linking...
-Program Size: Code=8392 RO-data=392 RW-data=144 ZI-data=1040  
+Program Size: Code=9376 RO-data=484 RW-data=312 ZI-data=1056  
 FromELF: creating hex file...
-".\Objects\ClockLED_ONE.axf" - 0 Error(s), 11 Warning(s).
+".\Objects\ClockLED_ONE.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -87,7 +64,7 @@ Package Vendor: GigaDevice
   C:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

@@ -33,6 +33,12 @@ void fu_03(void);
 void fu_04(void);
 void fu_05(void);
 
+void fu_01_fun(void);
+void fu_02_fun(void);
+void fu_03_fun(void);
+void fu_04_fun(void);
+void fu_05_fun(void);
+
 void menu_loop(void);
 
 

@@ -34,7 +34,7 @@
 #define TM1637_CLK_PIN	GPIO_PIN_9
 #define TM1637_CLK_PORT	GPIOA
 
-#define TM1637_CLK_LOW() 				gpio_bit_write(TM1637_CLK_PORT, TM1637_CLK_PIN, RESET)
+#define TM1637_CLK_LOW() 			gpio_bit_write(TM1637_CLK_PORT, TM1637_CLK_PIN, RESET)
 #define TM1637_CLK_HIGH() 			gpio_bit_write(TM1637_CLK_PORT, TM1637_CLK_PIN, SET)
 
 #define TM1637_DIO_RCU	RCU_GPIOA
@@ -122,7 +122,7 @@ typedef struct
 	time_t 		time;				// 时间
 } tm1637_t;
 
-
+extern tm1637_t tm1637;
 
 
 void tm1637_init(tm1637_t *tm1637); 					// TM1637 初始化

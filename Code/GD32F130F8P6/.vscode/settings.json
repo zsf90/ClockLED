@@ -1,6 +1,9 @@
 {
     "files.associations": {
         "systick.h": "c",
-        "encoder.h": "c"
+        "encoder.h": "c",
+        "ds1302.h": "c",
+        "tm1637.h": "c",
+        "ds18b20.h": "c"
     }
 }
