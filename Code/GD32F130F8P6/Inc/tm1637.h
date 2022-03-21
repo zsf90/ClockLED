@@ -133,6 +133,7 @@ void tm1637_display_float(float fnum);					// 显示小数
 void tm1637_display_time(tm1637_t *tm1637);				// 显示时间
 void tm1637_display_int(uint16_t num); 					// 显示整数
 void tm1637_display_menu(menu_enum menu); 				// 显示菜单
+void tm1637_set_brightness(tm1637_t *tm1637, uint8_t brightness);
 
 /**
  * 静态函数声明 
@@ -145,5 +146,5 @@ static void i2c_stop(void);
 static void i2c_write_byte(uint8_t data);
 static void tm1637_write_command(uint8_t cmd);
 static void tm1637_clear(void);
-static void tm1637_brightness(tm1637_t *tm1637, uint8_t brightness);
+
 #endif /* __TM1637_H */

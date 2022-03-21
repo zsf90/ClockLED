@@ -18,11 +18,13 @@
 #include "ds18b20.h"
 #include "ds1302.h"
 #include "delay.h"
+#include "stdio.h"
 
 extern ds18b20_t ds18b20;
 extern uint32_t loop_display_count;
 extern uint32_t loop_display_flag; /* 1: 显示温度 2: 显示时间 */
 extern EC11_t ec11_1;
+extern uint8_t TIME[];
 
 uint16_t temp = 0;
 uint32_t clk_count = 0;
@@ -62,6 +64,7 @@ void main_page(void)
     	ds1302_read_time();
     	tm1637_display_time(&tm1637); /* 显示时间 */
     }
+    printf("%d年%d月%d日 %d:%d:%d 周：%d\n", TIME[YEAR], TIME[MONTH], TIME[DAY], TIME[HOUR], TIME[MINUTES], TIME[SECOND], TIME[WEEK]);
 }
 
 /* 一级菜单 */
@@ -80,6 +83,10 @@ void fu_03(void)
     tm1637_display_menu(FU03);
 }
 
+/**
+ * @brief 设置日期时间 
+ * 
+ */
 void fu_04(void)
 {
     tm1637_display_menu(FU04);
@@ -93,6 +100,7 @@ void fu_05(void)
 {
     tm1637_display_menu(FU05);
 }
+
 
 void fu_01_fun(void)
 {
@@ -132,11 +140,116 @@ void fu_03_fun(void)
 
 }
 
+/**
+ * @brief 设置日期时间 
+ * 
+ */
 void fu_04_fun(void)
 {
+    uint8_t temp;
+    temp = 0;
+    uint8_t num_count;
+    num_count = 0;
 
+    /**
+     * @brief 设置日期时间
+     * 0: 秒
+     * 1：分
+     * 2：时
+     * 3：日
+     * 4：月
+     * 5：周
+     * 6：年
+     * 
+     */
+    while(1){
+        ec11_return_result _ec11_results = encoder_handle();
+        switch (_ec11_results)
+        {
+        case EC11_CW:
+            switch (temp)
+            {
+                case 0: /* 秒 */
+                case 1: /* 分 */
+                    num_count++;
+                    if (num_count > 60) num_count = 0;
+                    break;
+                case 2: /* 时（24小时制）：0 ~ 23 */
+                    num_count++;
+                    if (num_count > 23) num_count = 0;
+                    break;
+                case 3: /* 日：1~31 */
+                    num_count++;
+                    if (num_count > 31) num_count = 1;
+                    break;
+                case 4: /* 月：1~12 */
+                    num_count++;
+                    if (num_count > 12) num_count = 1;
+                    break;
+                case 5: /* 周： 1~7 */
+                    num_count++;
+                    if (num_count > 7) num_count = 1;
+                    break;
+                case 6: /* 年: */
+                    num_count++;
+                    if (num_count > 100) num_count = 0;
+                    break;
+            }
+            ec11_1.return_reslut = EC11_NONE;
+            break;
+        case EC11_CCW:
+            switch (temp)
+            {
+                case 0: /* 秒 */
+                case 1: /* 分 */
+                    num_count--;
+                    if (num_count < 0) num_count = 60;
+                    break;
+                case 2: /* 时（24小时制）：0 ~ 23 */
+                    num_count--;
+                    if (num_count < 0) num_count = 23;
+                    break;
+                case 3: /* 日：1~31 */
+                    num_count--;
+                    if (num_count < 0) num_count = 31;
+                    break;
+                case 4: /* 月：1~12 */
+                    num_count--;
+                    if (num_count < 1) num_count = 12;
+                    break;
+                case 5: /* 周： 1~7 */
+                    num_count--;
+                    if (num_count < 1) num_count = 7;
+                    break;
+                case 6: /* 年: */
+                    num_count--;
+                    if (num_count < 0) num_count = 100;
+                    break;
+            }
+            ec11_1.return_reslut = EC11_NONE;
+            break;
+        case EC11_CLICK:
+            
+            TIME[temp] = num_count;
+            temp++;
+            num_count = 0;
+            ec11_1.return_reslut = EC11_NONE;
+            if(temp > 6) goto end_fu_04;
+        default:
+            break;
+        }
+        tm1637_display_int(num_count);
+    }
+    
+    end_fu_04:
+    ds1302_init();
+    now_index = 1; // 退出 fu_04 函数，并设置 now_index 为二级菜单的第一个 Item
 }
 
+/**
+ * @brief 数码管亮度设置 
+ * 
+ */
 void fu_05_fun(void)
 {
     uint8_t brightness = 4;
@@ -147,14 +260,14 @@ void fu_05_fun(void)
         case EC11_CW:
             if(brightness < 8) {
                 brightness++;
-                tm1637.brightness = TM1637_ON + brightness -1;
+                tm1637_set_brightness(&tm1637, brightness);
             }
             ec11_1.return_reslut = EC11_NONE;
             break;
         case EC11_CCW:
             if(brightness > 1) {
                 brightness--;
-                tm1637.brightness = TM1637_ON + brightness -1;
+                tm1637_set_brightness(&tm1637, brightness);
             }
             ec11_1.return_reslut = EC11_NONE;
             break;

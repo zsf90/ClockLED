@@ -265,6 +265,8 @@ void tm1637_display_float(float fnum)
     float dec_part; /*小数部分 */
     dec_part = fnum - int_part;
 
+    tm1637_display_fixed(5, SEGData[SEG_None]);
+
     if(int_part < 9) {
         /**
          * @brief 小于9时显示1位整数+两位小数，整数显示在第3位
@@ -346,6 +348,12 @@ void tm1637_display_time(tm1637_t *tm1637)
     } else {
         tm1637_display_fixed(5, SEGData[SEG_point]);
     }
+}
+
+/* 亮度设置 1~8 */
+void tm1637_set_brightness(tm1637_t *tm1637, uint8_t brightness)
+{
+    tm1637->brightness = TM1637_ON + brightness - 1;
 }
 
 /***************************************** 静态函数 *****************************************/
@@ -447,8 +455,4 @@ static void tm1637_clear(void)
     tm1637_display_fixed(4, 0);
 }
 
-/* 亮度设置 1~8 */
-static void tm1637_brightness(tm1637_t *tm1637, uint8_t brightness)
-{
-    tm1637->brightness = TM1637_ON + brightness - 1;
-}
+

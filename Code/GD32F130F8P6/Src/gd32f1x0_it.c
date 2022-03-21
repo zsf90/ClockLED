@@ -166,9 +166,9 @@ void SysTick_Handler(void)
     loop_display_count++;
 	if(loop_display_count <= 4000) {
 		loop_display_flag = 1;
-	} else if (loop_display_count > 4000 && loop_display_count < 8000) {
+	} else if (loop_display_count > 4000 && loop_display_count < 40000) {
 		loop_display_flag = 2;
-	} else if (loop_display_count > 8000) {
+	} else if (loop_display_count > 40000) {
 		loop_display_count = 0;
 	}
 

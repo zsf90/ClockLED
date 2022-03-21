@@ -34,9 +34,8 @@ int main(void)
 	encoder_exit_config(ENCODER_MODE_EXIT);
 	ds18b20_init(&ds18b20);
 	ds1302_gpio_init();
-	ds1302_init();
 
-
+	delay_1ms(500);
 	if(ds18b20_ack()) {
 		printf("DS18B20 Init Error!\n");
 	} else {

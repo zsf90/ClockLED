@@ -37,6 +37,7 @@ void ds1302_init(void)
         ds1302_write(WRITE_RTC_ADDR[n], TIME[n]);
     }
     ds1302_write(0x8e, 0x80);
+    delay_ms(1000);
 }
 
 /**
