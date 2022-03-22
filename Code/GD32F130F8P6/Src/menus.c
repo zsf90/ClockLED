@@ -64,7 +64,7 @@ void main_page(void)
     	ds1302_read_time();
     	tm1637_display_time(&tm1637); /* 显示时间 */
     }
-    printf("%d年%d月%d日 %d:%d:%d 周：%d\n", TIME[YEAR], TIME[MONTH], TIME[DAY], TIME[HOUR], TIME[MINUTES], TIME[SECOND], TIME[WEEK]);
+    printf("%d年%d月%d日 %d:%d:%d 周：%d\n", time_buffer[YEAR], time_buffer[MONTH], time_buffer[DAY], time_buffer[HOUR], time_buffer[MINUTES], time_buffer[SECOND], time_buffer[WEEK]);
 }
 
 /* 一级菜单 */
@@ -242,7 +242,7 @@ void fu_04_fun(void)
     }
     
     end_fu_04:
-    ds1302_init();
+    ds1302_init(); /* 把调整好的日起时间写入 ds1302 */
     now_index = 1; // 退出 fu_04 函数，并设置 now_index 为二级菜单的第一个 Item
 }
 

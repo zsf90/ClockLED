@@ -333,12 +333,12 @@ void tm1637_display_float(float fnum)
 void tm1637_display_time(tm1637_t *tm1637)
 {
     uint8_t hour_h, hour_l, min_h, min_l, time_point;
-    hour_h = TIME[HOUR] / 10 % 10;
-    hour_l = TIME[HOUR] % 10;
-    min_h = TIME[MINUTES] / 10 % 10;
-    min_l = TIME[MINUTES] % 10;
+    hour_h = time_buffer[HOUR]  / 10 % 10;
+    hour_l = time_buffer[HOUR] % 10;
+    min_h = time_buffer[MINUTES] / 10 % 10;
+    min_l = time_buffer[MINUTES] % 10;
 
-    time_point = TIME[SECOND];
+    time_point = time_buffer[SECOND];
     tm1637_display_fixed(1, SEGData[hour_h]);
     tm1637_display_fixed(2, SEGData[hour_l]);
     tm1637_display_fixed(3, SEGData[min_h]);
@@ -454,5 +454,3 @@ static void tm1637_clear(void)
     tm1637_display_fixed(3, 0);
     tm1637_display_fixed(4, 0);
 }
-
-

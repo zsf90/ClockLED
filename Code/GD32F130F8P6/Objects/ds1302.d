@@ -23,3 +23,4 @@
 .\objects\ds1302.o: .\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_wwdgt.h
 .\objects\ds1302.o: .\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_misc.h
 .\objects\ds1302.o: .\Inc\delay.h
+.\objects\ds1302.o: .\Inc\tools.h

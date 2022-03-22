@@ -31,7 +31,7 @@ I (.\Inc\tm1637.h)(0x62388799)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
 I (.\Inc\encoder.h)(0x6228CF75)
 I (.\Inc\ds18b20.h)(0x6237454F)
-I (.\Inc\ds1302.h)(0x62370607)
+I (.\Inc\ds1302.h)(0x6239F139)
 I (.\Inc\menus.h)(0x62374D5B)
 F (.\Src\gd32f1x0_it.c)(0x62389D3C)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Firmware\CMSIS\GD\GD32F1x0\Include -I .\Firmware\GD32F1x0_standard_peripheral\Include -I .\Firmware\CMSIS -I .\Inc -I .\Utilities --diag_suppress=188,177-IC:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-D__UVISION_VERSION="536" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER -DGD32F130_150 -DDEBUG-o .\objects\gd32f1x0_it.o --omf_browse .\objects\gd32f1x0_it.crf --depend .\objects\gd32f1x0_it.d)
 I (.\Inc\gd32f1x0_it.h)(0x60A21528)
@@ -84,7 +84,7 @@ I (.\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_usart.h)(0x60A21533)
 I (.\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_wwdgt.h)(0x60A21532)
 I (.\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_misc.h)(0x60A21532)
 I (.\Inc\systick.h)(0x621CD93B)
-F (.\Src\tm1637.c)(0x623887C0)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Firmware\CMSIS\GD\GD32F1x0\Include -I .\Firmware\GD32F1x0_standard_peripheral\Include -I .\Firmware\CMSIS -I .\Inc -I .\Utilities --diag_suppress=188,177-IC:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-D__UVISION_VERSION="536" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER -DGD32F130_150 -DDEBUG-o .\objects\tm1637.o --omf_browse .\objects\tm1637.crf --depend .\objects\tm1637.d)
+F (.\Src\tm1637.c)(0x6239DA80)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Firmware\CMSIS\GD\GD32F1x0\Include -I .\Firmware\GD32F1x0_standard_peripheral\Include -I .\Firmware\CMSIS -I .\Inc -I .\Utilities --diag_suppress=188,177-IC:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-D__UVISION_VERSION="536" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER -DGD32F130_150 -DDEBUG-o .\objects\tm1637.o --omf_browse .\objects\tm1637.crf --depend .\objects\tm1637.d)
 I (.\Inc\tm1637.h)(0x62388799)
 I (.\Firmware\CMSIS\GD\GD32F1x0\Include\gd32f1x0.h)(0x60A21535)
 I (.\Firmware\CMSIS\core_cm3.h)(0x60A21534)
@@ -110,7 +110,7 @@ I (.\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_misc.h)(0x60A21532)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
 I (.\Inc\delay.h)(0x621CE3BF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
-I (.\Inc\ds1302.h)(0x62370607)
+I (.\Inc\ds1302.h)(0x6239F139)
 F (.\Src\debug_printf.c)(0x622741A3)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Firmware\CMSIS\GD\GD32F1x0\Include -I .\Firmware\GD32F1x0_standard_peripheral\Include -I .\Firmware\CMSIS -I .\Inc -I .\Utilities --diag_suppress=188,177-IC:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-D__UVISION_VERSION="536" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER -DGD32F130_150 -DDEBUG-o .\objects\debug_printf.o --omf_browse .\objects\debug_printf.crf --depend .\objects\debug_printf.d)
 I (.\Inc\debug_printf.h)(0x621B5A17)
 I (.\Firmware\CMSIS\GD\GD32F1x0\Include\gd32f1x0.h)(0x60A21535)
@@ -208,8 +208,8 @@ I (.\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_wwdgt.h)(0x60A21532)
 I (.\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_misc.h)(0x60A21532)
 I (.\Inc\delay.h)(0x621CE3BF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
-F (.\Src\ds1302.c)(0x6238A4DA)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Firmware\CMSIS\GD\GD32F1x0\Include -I .\Firmware\GD32F1x0_standard_peripheral\Include -I .\Firmware\CMSIS -I .\Inc -I .\Utilities --diag_suppress=188,177-IC:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-D__UVISION_VERSION="536" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER -DGD32F130_150 -DDEBUG-o .\objects\ds1302.o --omf_browse .\objects\ds1302.crf --depend .\objects\ds1302.d)
-I (.\Inc\ds1302.h)(0x62370607)
+F (.\Src\ds1302.c)(0x6239E289)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Firmware\CMSIS\GD\GD32F1x0\Include -I .\Firmware\GD32F1x0_standard_peripheral\Include -I .\Firmware\CMSIS -I .\Inc -I .\Utilities --diag_suppress=188,177-IC:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-D__UVISION_VERSION="536" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER -DGD32F130_150 -DDEBUG-o .\objects\ds1302.o --omf_browse .\objects\ds1302.crf --depend .\objects\ds1302.d)
+I (.\Inc\ds1302.h)(0x6239F139)
 I (.\Firmware\CMSIS\GD\GD32F1x0\Include\gd32f1x0.h)(0x60A21535)
 I (.\Firmware\CMSIS\core_cm3.h)(0x60A21534)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
@@ -232,7 +232,8 @@ I (.\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_usart.h)(0x60A21533)
 I (.\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_wwdgt.h)(0x60A21532)
 I (.\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_misc.h)(0x60A21532)
 I (.\Inc\delay.h)(0x621CE3BF)
-F (.\Src\menus.c)(0x6238A4EC)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Firmware\CMSIS\GD\GD32F1x0\Include -I .\Firmware\GD32F1x0_standard_peripheral\Include -I .\Firmware\CMSIS -I .\Inc -I .\Utilities --diag_suppress=188,177-IC:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-D__UVISION_VERSION="536" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER -DGD32F130_150 -DDEBUG-o .\objects\menus.o --omf_browse .\objects\menus.crf --depend .\objects\menus.d)
+I (.\Inc\tools.h)(0x6239EAB6)
+F (.\Src\menus.c)(0x6239DD22)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Firmware\CMSIS\GD\GD32F1x0\Include -I .\Firmware\GD32F1x0_standard_peripheral\Include -I .\Firmware\CMSIS -I .\Inc -I .\Utilities --diag_suppress=188,177-IC:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-D__UVISION_VERSION="536" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER -DGD32F130_150 -DDEBUG-o .\objects\menus.o --omf_browse .\objects\menus.crf --depend .\objects\menus.d)
 I (.\Inc\menus.h)(0x62374D5B)
 I (.\Firmware\CMSIS\GD\GD32F1x0\Include\gd32f1x0.h)(0x60A21535)
 I (.\Firmware\CMSIS\core_cm3.h)(0x60A21534)
@@ -259,7 +260,7 @@ I (.\Inc\encoder.h)(0x6228CF75)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
 I (.\Inc\tm1637.h)(0x62388799)
 I (.\Inc\ds18b20.h)(0x6237454F)
-I (.\Inc\ds1302.h)(0x62370607)
+I (.\Inc\ds1302.h)(0x6239F139)
 I (.\Inc\delay.h)(0x621CE3BF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 F (.\Firmware\CMSIS\GD\GD32F1x0\Source\system_gd32f1x0.c)(0x62238986)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Firmware\CMSIS\GD\GD32F1x0\Include -I .\Firmware\GD32F1x0_standard_peripheral\Include -I .\Firmware\CMSIS -I .\Inc -I .\Utilities --diag_suppress=188,177-IC:\Users\zhang\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.2.0\Device\Include-D__UVISION_VERSION="536" -DGD32F1x0 -DGD32F130_150 -DUSE_STDPERIPH_DRIVER -DUSE_STDPERIPH_DRIVER -DGD32F130_150 -DDEBUG-o .\objects\system_gd32f1x0.o --omf_browse .\objects\system_gd32f1x0.crf --depend .\objects\system_gd32f1x0.d)

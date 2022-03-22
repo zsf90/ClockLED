@@ -10,9 +10,12 @@
  */
 #include "ds1302.h"
 #include "delay.h"
+#include "tools.h"
 
 #define IN  0
 #define OUT 1
+
+uint8_t time_buffer[7];     /* BCD 转换后的数组 */
 
 /* DS1302 读写地址寄存器 秒：分：时：日-月-周-年 */
 uint8_t READ_RTC_ADDR[7]    = {0x81, 0x83, 0x85, 0x87, 0x89, 0x8b, 0x8d};
@@ -22,8 +25,10 @@ uint8_t WRITE_RTC_ADDR[7]   = {0x80, 0x82, 0x84, 0x86, 0x88, 0x8a, 0x8c};
 /* 存储顺序是秒分时日月周年,存储格式是用BCD码 */
 uint8_t TIME[7] = {0, 0, 0x12, 0x07, 0x05, 0x06, 0x16};
 
+
 /* 静态函数声明 */
 static void ds1302_dio_mode(uint8_t in_or_out);
+static void ds1302_write_cmd(uint8_t cmd_or_addr);
 
 /**
  * @brief 初始化时钟,设置时钟时间
@@ -34,7 +39,7 @@ void ds1302_init(void)
     uint8_t n;
     ds1302_write(0x8e, 0x00);
     for (n=0; n<7; n++) {
-        ds1302_write(WRITE_RTC_ADDR[n], TIME[n]);
+        ds1302_write(WRITE_RTC_ADDR[n], HEX2BCD(TIME[n])); /* 要把 hex 转换为 BCD */
     }
     ds1302_write(0x8e, 0x80);
     delay_ms(1000);
@@ -48,7 +53,7 @@ void ds1302_read_time(void)
 {
     uint8_t n;
     for (n=0; n<7; n++) {
-        TIME[n] = ds1302_read(READ_RTC_ADDR[n]);
+        time_buffer[n] = BCD2HEX(ds1302_read(READ_RTC_ADDR[n]));
     }
 }
 
@@ -79,7 +84,6 @@ void ds1302_gpio_init(void)
  */
 void ds1302_write(uint8_t addr, uint8_t data)
 {
-    uint8_t n;
     DS1302_RST_WRITE(0);
     delay_1us(1);
 
@@ -88,23 +92,9 @@ void ds1302_write(uint8_t addr, uint8_t data)
     DS1302_RST_WRITE(1);
     delay_1us(1);
 
-    ds1302_dio_mode(OUT);
-    for (n=0; n<8; n++) {
-        DS1302_DIO_WRITE(addr & 0x01);
-        addr >>= 1;
-        DS1302_CLK_WRITE(1);
-        delay_1us(1);
-        DS1302_CLK_WRITE(0);
-        delay_1us(1);
-    }
-    for (n=0; n<8; n++) {
-        DS1302_DIO_WRITE(data & 0x01);
-        data >>= 1;
-        DS1302_CLK_WRITE(1);
-        delay_1us(1);
-        DS1302_CLK_WRITE(0);
-        delay_1us(1);
-    }
+    ds1302_write_cmd(addr);
+
+    ds1302_write_cmd(data);
 
     DS1302_RST_WRITE(0);
     delay_1us(1);
@@ -119,7 +109,8 @@ void ds1302_write(uint8_t addr, uint8_t data)
 uint8_t ds1302_read(uint8_t addr)
 {
     uint8_t n, data, data1;
-
+    data = 0;
+    data1 = 0;
     DS1302_RST_WRITE(0);
     delay_1us(1);
 
@@ -128,15 +119,8 @@ uint8_t ds1302_read(uint8_t addr)
     DS1302_RST_WRITE(1);
     delay_1us(1);
 
-    ds1302_dio_mode(OUT);
-    for (n=0; n<8; n++) {
-        DS1302_DIO_WRITE(addr & 0x01);
-        addr >>= 1;
-        DS1302_CLK_WRITE(1);
-        delay_1us(1);
-        DS1302_CLK_WRITE(0);
-        delay_1us(1);
-    }
+    ds1302_write_cmd(addr);
+    
     delay_1us(1);
 
     ds1302_dio_mode(IN);
@@ -186,4 +170,21 @@ static void ds1302_dio_mode(uint8_t in_or_out)
     GPIO_BC(DS1302_DIO_PORT) = DS1302_DIO_PIN;
 }
 
+/**
+ * @brief 写命令与地址
+ * 
+ */
+static void ds1302_write_cmd(uint8_t cmd_or_addr)
+{
+    uint8_t i;
 
+    ds1302_dio_mode(OUT);
+    for (i=0; i<8; i++) {
+        DS1302_DIO_WRITE(cmd_or_addr & 0x01);
+        cmd_or_addr >>= 1;
+        DS1302_CLK_WRITE(1);
+        delay_1us(1);
+        DS1302_CLK_WRITE(0);
+        delay_1us(1);
+    }
+}
