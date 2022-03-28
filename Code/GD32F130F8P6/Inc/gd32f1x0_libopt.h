@@ -1,6 +1,7 @@
 /*!
     \file  gd32f1x0_libopt.h
     \brief library optional for gd32f1x0
+    \brief 选择自己使用的模块
 */
 
 /*
