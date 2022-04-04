@@ -19,6 +19,8 @@
 #include "ds1302.h"
 #include "delay.h"
 #include "stdio.h"
+#include "flash.h"
+#include "buzzer.h"
 
 extern ds18b20_t ds18b20;
 extern uint32_t loop_display_count;
@@ -54,17 +56,16 @@ menu_t menu_list[] = {
 /* 主页 */
 void main_page(void)
 {
+    ds18b20_get_temp(&ds18b20);
     if(loop_display_flag == 1)
     {
-    	ds18b20_get_temp(&ds18b20);
-    	// printf("当前温度: %.3f°C\n", ds18b20.temp);
     	tm1637_display_float(ds18b20.temp); /* 显示温度 */
-    	delay_ms(100);
     } else if(loop_display_flag == 2) {
     	ds1302_read_time();
     	tm1637_display_time(&tm1637); /* 显示时间 */
     }
-    printf("%d年%d月%d日 %d:%d:%d 周：%d\n", time_buffer[YEAR], time_buffer[MONTH], time_buffer[DAY], time_buffer[HOUR], time_buffer[MINUTES], time_buffer[SECOND], time_buffer[WEEK]);
+    //printf("%d年%d月%d日 %d:%d:%d 周：%d\n", time_buffer[YEAR], time_buffer[MONTH], time_buffer[DAY], time_buffer[HOUR], time_buffer[MINUTES], time_buffer[SECOND], time_buffer[WEEK]);
+    //printf("system_params size: %ld\n", sizeof(system_params));
 }
 
 /* 一级菜单 */
@@ -78,6 +79,10 @@ void fu_02(void)
     tm1637_display_menu(FU02);
 }
 
+/**
+ * @brief 设置温度高报值
+ * 
+ */
 void fu_03(void)
 {
     tm1637_display_menu(FU03);
@@ -135,9 +140,36 @@ void fu_02_fun(void)
 
 }
 
+/**
+ * @brief 设置温度高报值
+ * 
+ */
 void fu_03_fun(void)
 {
+    while(1){
+        ec11_return_result _ec11_results = encoder_handle();
+        switch (_ec11_results)
+        {
+        case EC11_CW:
+            system_params.temp_h += 0.2f;
+            ec11_1.return_reslut = EC11_NONE;
+            break;
+        case EC11_CCW:
+            system_params.temp_h -= 0.1f;
+            ec11_1.return_reslut = EC11_NONE;
+            break;
+        case EC11_CLICK:
+            system_param_write(&system_params);
+            ec11_1.return_reslut = EC11_NONE;
+            goto end_fu_04;
+        default:
+            break;
+        }
+        tm1637_display_float(system_params.temp_h);
+    }
 
+    end_fu_04:
+    now_index = 1; // 退出 fu_04 函数，并设置 now_index 为二级菜单的第一个 Item
 }
 
 /**
@@ -148,7 +180,7 @@ void fu_04_fun(void)
 {
     uint8_t temp;
     temp = 0;
-    uint8_t num_count;
+    int8_t num_count;
     num_count = 0;
 
     /**
@@ -252,32 +284,33 @@ void fu_04_fun(void)
  */
 void fu_05_fun(void)
 {
-    uint8_t brightness = 4;
     while(1){
         ec11_return_result _ec11_results = encoder_handle();
         switch (_ec11_results)
         {
         case EC11_CW:
-            if(brightness < 8) {
-                brightness++;
-                tm1637_set_brightness(&tm1637, brightness);
+            if(system_params.seg_light < 8) {
+                system_params.seg_light++;
+                tm1637_set_brightness(&tm1637, system_params.seg_light);
             }
             ec11_1.return_reslut = EC11_NONE;
             break;
         case EC11_CCW:
-            if(brightness > 1) {
-                brightness--;
-                tm1637_set_brightness(&tm1637, brightness);
+            if(system_params.seg_light > 1) {
+                system_params.seg_light--;
+                tm1637_set_brightness(&tm1637, system_params.seg_light);
             }
             ec11_1.return_reslut = EC11_NONE;
             break;
         case EC11_CLICK:
+            system_param_write(&system_params);
             ec11_1.return_reslut = EC11_NONE;
             goto end_fu_05;
         default:
             break;
         }
-        tm1637_display_int(brightness);
+        tm1637_display_int(system_params.seg_light);
+        
     }
 
     end_fu_05:

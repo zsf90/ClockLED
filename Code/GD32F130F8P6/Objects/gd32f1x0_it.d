@@ -27,3 +27,5 @@
 .\objects\gd32f1x0_it.o: .\Inc\encoder.h
 .\objects\gd32f1x0_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\gd32f1x0_it.o: .\Inc\ds18b20.h
+.\objects\gd32f1x0_it.o: .\Inc\buzzer.h
+.\objects\gd32f1x0_it.o: .\Inc\flash.h

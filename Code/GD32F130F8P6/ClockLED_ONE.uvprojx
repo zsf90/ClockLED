@@ -134,7 +134,7 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4099</DriverSelection>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
@@ -336,7 +336,7 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>--diag_suppress=188,177</MiscControls>
+              <MiscControls>--diag_suppress=188,177,870</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,GD32F130_150,DEBUG</Define>
               <Undefine></Undefine>
               <IncludePath>.\Firmware\CMSIS\GD\GD32F1x0\Include;.\Firmware\GD32F1x0_standard_peripheral\Include;.\Firmware\CMSIS;.\Inc;.\Utilities</IncludePath>
@@ -438,6 +438,11 @@
               <FileType>1</FileType>
               <FilePath>.\Src\flash.c</FilePath>
             </File>
+            <File>
+              <FileName>buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\buzzer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -497,6 +502,11 @@
               <FileName>gd32f1x0_dbg.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Firmware\GD32F1x0_standard_peripheral\Source\gd32f1x0_dbg.c</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f1x0_fmc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Firmware\GD32F1x0_standard_peripheral\Source\gd32f1x0_fmc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -944,6 +954,11 @@
               <FileType>1</FileType>
               <FilePath>.\Src\flash.c</FilePath>
             </File>
+            <File>
+              <FileName>buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\buzzer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1003,6 +1018,11 @@
               <FileName>gd32f1x0_dbg.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Firmware\GD32F1x0_standard_peripheral\Source\gd32f1x0_dbg.c</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f1x0_fmc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Firmware\GD32F1x0_standard_peripheral\Source\gd32f1x0_fmc.c</FilePath>
             </File>
           </Files>
         </Group>

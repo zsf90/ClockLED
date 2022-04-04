@@ -8,32 +8,64 @@
  * @copyright Copyright (c) 2022
  * 
  */
+#include "gd32f1x0.h"
 #include "flash.h"
+#include "string.h"
 
 #define FMC_PAGE_SIZE           ((uint16_t)0x400)   /* 1024 1KB */
 #define FMC_WRITE_START_ADDR    ((uint32_t)0x0800FC00U)
-#define FMC_WRITE_END_ADDR      ((uint32_t)0x08010000U) /* 64KB */
+#define FMC_WRITE_END_ADDR      ((uint32_t)0x0800FFFFU) /* 64KB */
 
-
-/* 定义与初始化 param_t */
-param_t system_param = {
-    .temp_h             = 0,
-    .temp_l             = 0,
-    .seg_light          = 4,
-    .time_week          = 0x3f,
-    .time_hour          = 7,
-    .time_minutes       = 0,
-    .time_count         = 0,
-    .time_timer_num     = 60 * 3, /* 3 分钟*/
+param_t system_params = {
+    .is_first = 0xf1,
+    .temp_h = 35.5f,
+    .temp_l = 12.5f,
+    .time_timer_num = 500,
+    .seg_light = 4,
+    .time_week = 3,
+    .time_hour = 7,
+    .time_minutes = 30,
+    .time_count = 120,
 };
+
+static void fmc_param_pages_erase(void)
+{
+    fmc_unlock();
+    fmc_flag_clear(FMC_FLAG_END | FMC_FLAG_WPERR | FMC_FLAG_PGERR);
+    while(FMC_BUSY == fmc_page_erase(FMC_WRITE_START_ADDR)); /* 从 FMC_WRITE_START_ADDR 开始擦除 */
+    fmc_flag_clear(FMC_FLAG_END | FMC_FLAG_WPERR | FMC_FLAG_PGERR);
+    fmc_lock();
+}
 
 /**
  * @brief 写 param 参数到 Flash
  * 
  */
-void param_write(void)
+static void fmc_param_program(uint32_t *data, int data_len)
 {
+    fmc_unlock();   /* 解锁 */
+    uint32_t address = FMC_WRITE_START_ADDR;
+    while(address <= FMC_WRITE_END_ADDR) {
+        if(data_len <= 0) break;
+        fmc_word_program(address, *data);
+        address += 4U;
+        data++;
+        fmc_flag_clear(FMC_FLAG_END | FMC_FLAG_WPERR | FMC_FLAG_PGERR);
+        data_len -= 4;
+    }
+    fmc_lock();     /* 上锁 */
+}
 
+int system_param_write(param_t *params)
+{
+    if(params == NULL) return -1;
+    param_union_t param_union;
+    memset(&param_union, 0, sizeof(param_union_t));
+    memcpy(&param_union.system_param, params, sizeof(param_t));
+    fmc_param_pages_erase();
+    fmc_param_program((uint32_t*)&param_union, sizeof(param_union_t));
+
+    return 0;
 }
 
 /**
@@ -41,22 +73,16 @@ void param_write(void)
  * 
  * @param param 
  */
-void param_read(param_t *param)
+int system_param_read(param_t *param)
 {
     static uint32_t i = 0;
-    param->temp_h = FMC_READ(FMC_WRITE_START_ADDR);
-    ++i;
-    param->temp_l = FMC_READ(FMC_WRITE_START_ADDR+i);
-    ++i;
-    param->seg_light = FMC_READ(FMC_WRITE_START_ADDR+i);
-    ++i;
-    param->time_week = FMC_READ(FMC_WRITE_START_ADDR+i);
-    ++i;
-    param->time_hour = FMC_READ(FMC_WRITE_START_ADDR+i);
-    ++i;
-    param->time_minutes = FMC_READ(FMC_WRITE_START_ADDR+i);
-    ++i;
-    param->time_count = FMC_READ(FMC_WRITE_START_ADDR+i);
-    ++i;
-    param->time_timer_num = FMC_READ(FMC_WRITE_START_ADDR+i);
+    param_union_t param_union;
+    uint8_t *ptr = (uint8_t*)FMC_WRITE_START_ADDR;
+    if(*ptr == 0xf1)
+    {
+        memcpy(&param_union, ptr, sizeof(param_union_t));
+        memcpy(param, &param_union.system_param, sizeof(param_t));
+        return 0;
+    }
+    return -1;
 }

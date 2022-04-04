@@ -22,8 +22,6 @@
 .\objects\main.o: .\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_wwdgt.h
 .\objects\main.o: .\Firmware\GD32F1x0_standard_peripheral\Include\gd32f1x0_misc.h
 .\objects\main.o: .\Inc\systick.h
-.\objects\main.o: .\Inc\debug_printf.h
-.\objects\main.o: .\Utilities\gd32f1x0r_eval.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\main.o: .\Inc\delay.h
 .\objects\main.o: .\Inc\tm1637.h
@@ -32,3 +30,5 @@
 .\objects\main.o: .\Inc\ds18b20.h
 .\objects\main.o: .\Inc\ds1302.h
 .\objects\main.o: .\Inc\menus.h
+.\objects\main.o: .\Inc\flash.h
+.\objects\main.o: .\Inc\buzzer.h

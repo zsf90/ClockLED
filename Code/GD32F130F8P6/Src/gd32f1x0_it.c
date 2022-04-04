@@ -43,6 +43,8 @@ OF SUCH DAMAGE.
 
 #include "encoder.h"
 #include "ds18b20.h"
+#include "buzzer.h"
+#include "flash.h"
 
 extern uint32_t num;
 extern EC11_t ec11_1;
@@ -166,9 +168,9 @@ void SysTick_Handler(void)
     loop_display_count++;
 	if(loop_display_count <= 4000) {
 		loop_display_flag = 1;
-	} else if (loop_display_count > 4000 && loop_display_count < 40000) {
+	} else if (loop_display_count > 4000 && loop_display_count < 12000) {
 		loop_display_flag = 2;
-	} else if (loop_display_count > 40000) {
+	} else if (loop_display_count > 12000) {
 		loop_display_count = 0;
 	}
 
@@ -243,5 +245,22 @@ void EXTI4_15_IRQHandler(void)
         }
         ec11_1.clk_count = 0;
         exti_interrupt_flag_clear(ENCODER_CLK_EXTI_LINE);
+    }
+}
+
+/**
+ * @brief 定时器 14
+ * 
+ */
+void TIMER14_IRQHandler(void)
+{
+	if(SET == timer_interrupt_flag_get(TIMER14, TIMER_INT_UP)){
+        if(ds18b20.temp > system_params.temp_h) {
+            GPIO_OCTL(BUZZER_PORT) ^= BUZZER_PIN; 
+        } else {
+            buzzer_off();
+        }
+        /* clear channel 0 interrupt bit */
+        timer_interrupt_flag_clear(TIMER14, TIMER_INT_FLAG_UP);
     }
 }

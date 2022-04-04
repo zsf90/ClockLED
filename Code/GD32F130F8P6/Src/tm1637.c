@@ -12,6 +12,7 @@
 #include "delay.h"
 #include <stdio.h>
 #include "ds1302.h"
+#include "flash.h"
 
 
 tm1637_t tm1637;
@@ -145,7 +146,7 @@ void tm1637_unlock(tm1637_t *tm1637)
 void tm1637_init(tm1637_t *tm1637)
 {
 	tm1637_gpio_init(); // GPIO 初始化
-    tm1637->brightness = TM1637_ON + 3;
+    tm1637->brightness = TM1637_ON + system_params.seg_light - 1;
 }
 
 

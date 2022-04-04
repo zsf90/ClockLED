@@ -5,6 +5,11 @@
         "ds1302.h": "c",
         "tm1637.h": "c",
         "ds18b20.h": "c",
-        "gd32f1x0_fmc.h": "c"
+        "gd32f1x0_fmc.h": "c",
+        "gd32f1x0.h": "c",
+        "flash.h": "c",
+        "gd32f1x0_libopt.h": "c",
+        "buzzer.h": "c",
+        "gd32f1x0_it.h": "c"
     }
 }
